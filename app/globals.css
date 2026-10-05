@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-serif), Georgia, serif;
+  --font-display: var(--font-display), Georgia, serif;
+  --font-mono: var(--font-mono), monospace;
+}
+
+
+:root {
+  --bg-dark: #08070d;
+}
+
+body {
+  background-color: #08070d;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+/* High Contrast Card Styles (No murky blur, crisp solid borders) */
+.card-high-contrast {
+  background-color: #12101d;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+}
+
+.card-high-contrast:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+}
+
+.card-accent-contrast {
+  background: linear-gradient(180deg, #18132a 0%, #100d1e 100%);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.75), 0 0 25px -5px rgba(147, 51, 234, 0.2);
+}
+
+.card-accent-contrast:hover {
+  border-color: rgba(255, 107, 53, 0.6);
+}
+
+.card-compact-contrast {
+  background-color: #0f0d19;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.6);
+}
+
+.card-compact-contrast:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Fluid Typography and Overflow Safety */
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  text-wrap: balance;
+  min-width: 0;
+}
+
+/* Marquee Infinite Smooth Scrolling */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 36s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 40s linear infinite;
+  will-change: transform;
+}
+
+/* Pause on hover */
+.pause-on-hover:hover .animate-marquee-left,
+.pause-on-hover:hover .animate-marquee-right {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left,
+  .animate-marquee-right {
+    animation-play-state: paused !important;
+  }
+}
+
+/* Luxury Champagne Gold Glass Card Utilities */
+.luxury-glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(20, 16, 12, 0.75) 50%, rgba(12, 9, 7, 0.92) 100%);
+  border: 1px solid rgba(229, 197, 150, 0.18);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.luxury-card-hover {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.luxury-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(229, 197, 150, 0.55);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 25px -2px rgba(203, 160, 90, 0.22);
+}
+
+/* Shine sweep animation on cards */
+.shine-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-sweep::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
+}
+
+.shine-sweep:hover::after {
+  left: 140%;
+}
+
+/* Ken Burns slow zoom for Gallery slideshow */
+@keyframes kenBurnsZoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06) translate(-0.5%, -0.5%);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.ken-burns {
+  animation: kenBurnsZoom 16s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Staggered room pins entrance */
+@keyframes staggerPinIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -30%) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.animate-pin-in {
+  animation: staggerPinIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ken-burns {
+    animation: none !important;
+    transform: none !important;
+  }
+  .animate-pin-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+/* Circular spinning border glow for Gold CTA button on hover */
+@keyframes borderSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-border-spin {
+  animation: borderSpin 2.6s linear infinite;
+}
+
+/* Continuous light sweep shimmer animation */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmerSweep 3.2s infinite ease-in-out;
+}
+
+/* Subtle breathing golden pulse glow */
+@keyframes pulseGoldGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(204, 161, 92, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(229, 197, 150, 0.5);
+  }
+}
+
+.animate-pulse-gold {
+  animation: pulseGoldGlow 3s infinite ease-in-out;
+}
+
+/* Luxury Gold Text Shimmer */
+@keyframes goldShine {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.text-gold-shimmer {
+  background: linear-gradient(90deg, #cca15c 0%, #fff4e0 25%, #e5c596 50%, #cca15c 75%, #faead2 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: goldShine 3.5s ease infinite;
+}
+
+
